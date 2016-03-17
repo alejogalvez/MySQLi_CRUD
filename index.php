@@ -5,7 +5,7 @@ include_once 'crud.php';
 <html>
 <head>
 <meta charset="utf-8">
-<title>Documento sin título</title>
+<title>CRUD con PHP y extensión MYSQLi con parámetros</title>
 <link rel="stylesheet" href="css/style.css">
 </head>
 
