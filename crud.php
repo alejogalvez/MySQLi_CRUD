@@ -1,14 +1,14 @@
 <?php
-
 	include_once 'db.php';
-
 	//Código para insertar los datos.
 	if(isset($_POST['save']))
 	{
 		$fn = $MySQLi->real_escape_string($_POST['fn']);
 		$ln = $MySQLi->real_escape_string($_POST['ln']);
-
-		$SQL = $MySQLi->query("INSERT INTO data(fn,ln) VALUES('$fn','$ln')");
+		//MiSQLy con declaraciones
+		$SQL = $MySQLi->prepare("INSERT INTO data(fn,ln) VALUES(?,?)");
+		$SQL->bind_param("ss",$fn,$ln);
+		$SQL->execute();
 
 		if(!$SQL)
 		{
@@ -19,7 +19,10 @@
 	//Código para el borrado de datos.
 	if(isset($_GET['del']))
 	{
-		$SQL = $MySQLi->query("DELETE FROM data WHERE id = " . $_GET['del']);
+		//MiSQLy con declaraciones
+		$SQL = $MySQLi->prepare("DELETE FROM data WHERE id = " . $_GET['del']);
+		$SQL->bind_param("i",$_GET['del']);
+		$SQL->execute();
 		header("Location: index.php");
 	}
 
@@ -31,9 +34,10 @@
 	}
 	if(isset($_POST['update']))
 	{
-
-		$SQL = $MySQLi->query("UPDATE data SET fn='".$_POST['fn']."', ln='".$_POST['ln']."' WHERE id=".$_GET['edit']);
+		//MiSQLy con declaraciones
+		$SQL = $MySQLi->prepare("UPDATE data SET fn=?, ln=? WHERE id=?");
+		$SQL->bind_param("ssi", $_POST['fn'], $_POST['ln'], $_GET['edit']);
+		$SQL->execute();
 		header("Location: index.php");
 	}
-
 ?>

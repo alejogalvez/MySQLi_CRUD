@@ -1,5 +1,5 @@
 <?php
-	include_once 'crud_parametros.php';
+include_once 'crud.php';
 ?>
 <!doctype html>
 <html>
